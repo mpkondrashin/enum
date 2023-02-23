@@ -36,7 +36,7 @@ func Run(packageName string, prefix string, values ...string) error {
 	defer f.Close()
 
 	t2 := template.New("t_enum")
-	t2.Funcs(map[string]any{"Title": strings.Title})
+	t2.Funcs(map[string]interface{}{"Title": strings.Title})
 	t2, err = t2.Parse(fileTemplate)
 	if err != nil {
 		return err
