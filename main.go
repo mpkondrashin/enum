@@ -6,8 +6,6 @@ import (
 	"log"
 	"os"
 	"strings"
-
-	"github.com/mpkondrashin/enum"
 )
 
 var (
@@ -46,7 +44,7 @@ func main() {
 	}
 	values := strings.Split(*valuesList, ",")
 
-	err := enum.Run(*packageName, *typeName, values...)
+	err := Run(*packageName, *typeName, values...)
 	if err != nil {
 		panic(err)
 	}
