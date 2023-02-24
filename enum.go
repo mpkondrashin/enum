@@ -69,13 +69,13 @@ const (
 {{end -}})
 
 func (v {{.Type}})String() string {
-	s, ok := map[{{.Type}}]string {
+    s, ok := map[{{.Type}}]string {
 {{range .Items}}        {{$.Type}}{{Title .}}: "{{.}}",
 {{end}}    }[v]
     if ok {
-		return s
-	}
-	return "{{.Type}}(" + strconv.FormatInt(int64(v), 10) + ")"
+        return s
+    }
+    return "{{.Type}}(" + strconv.FormatInt(int64(v), 10) + ")"
 }
 
 func (s *{{.Type}}) UnmarshalJSON(data []byte) error {
