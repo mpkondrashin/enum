@@ -79,17 +79,17 @@ func (v {{.Type}})String() string {
 }
 
 func (s *{{.Type}}) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	result, ok := map[string]{{.Type}}{
+    var v string
+    if err := json.Unmarshal(data, &v); err != nil {
+        return err
+    }
+    result, ok := map[string]{{.Type}}{
 {{range .Items}}        "{{.}}": {{$.Type}}{{Title .}},
 {{end}}    }[v]
-	if !ok {
-		return fmt.Errorf("%w: %s", ErrEnumUnknown, v)
-	}
-	*s = result
-	return nil
+    if !ok {
+        return fmt.Errorf("%w: %s", ErrEnumUnknown, v)
+    }
+    *s = result
+    return nil
 }
 `
