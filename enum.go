@@ -65,7 +65,7 @@ import (
 type {{.Type}} int
 
 const (
-{{range .Items}}	{{$.Type}}{{Title .}} {{$.Type }} = iota
+{{range .Items}}    {{$.Type}}{{Title .}} {{$.Type }} = iota
 {{end -}})
 
 func (v {{.Type}})String() string {
