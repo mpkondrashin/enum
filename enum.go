@@ -60,6 +60,7 @@ package {{.Package}}
 import (
     "encoding/json"
     "fmt"
+    "strconv"
 )
 
 type {{.Type}} int
