@@ -13,7 +13,7 @@ func Run(packageName string, prefix string, values ...string) error {
 	data["Items"] = values
 	data["Type"] = prefix
 
-	fErr, err := os.Create("error_enum.go")
+	fErr, err := os.Create("enum_error.go")
 	if err != nil {
 		return err
 	}
@@ -28,7 +28,7 @@ func Run(packageName string, prefix string, values ...string) error {
 		return err
 	}
 
-	fileName := fmt.Sprintf("%s_enum.go", strings.ToLower(prefix))
+	fileName := fmt.Sprintf("enum_%s.go", strings.ToLower(prefix))
 	f, err := os.Create(fileName)
 	if err != nil {
 		return err
