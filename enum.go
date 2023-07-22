@@ -79,18 +79,33 @@ func (v {{.Type}})String() string {
     return "{{.Type}}(" + strconv.FormatInt(int64(v), 10) + ")"
 }
 
+var {{.Type}}FromString = map[string]{{.Type}}{
+{{range .Items}}    "{{.}}": {{$.Type}}{{Title .}},
+{{end}}}
+
 func (s *{{.Type}}) UnmarshalJSON(data []byte) error {
     var v string
     if err := json.Unmarshal(data, &v); err != nil {
         return err
     }
-    result, ok := map[string]{{.Type}}{
-{{range .Items}}        "{{.}}": {{$.Type}}{{Title .}},
-{{end}}    }[v]
+    result, ok := {{.Type}}FromString[v]
     if !ok {
         return fmt.Errorf("%w: %s", ErrEnumUnknown, v)
     }
     *s = result
     return nil
+}
+
+func (s *{{.Type}}) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var v string
+	if err := unmarshal(&v); err != nil {
+		return err
+	}
+	result, ok := {{.Type}}FromString[v]		
+	if !ok {
+		return fmt.Errorf("%w: %s", ErrEnumUnknown, v)
+	}
+	*s = result
+	return nil
 }
 `
