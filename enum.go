@@ -1,13 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"strings"
 	"text/template"
 )
 
-func Run(packageName string, typeName string, noPrefix bool, values ...string) error {
+func Run(fileName string, packageName string, typeName string, noPrefix bool, values ...string) error {
 	data := make(map[string]interface{})
 	data["Package"] = packageName
 	data["Items"] = values
@@ -33,7 +32,6 @@ func Run(packageName string, typeName string, noPrefix bool, values ...string) e
 		}
 	*/
 
-	fileName := fmt.Sprintf("enum_%s.go", strings.ToLower(typeName))
 	f, err := os.Create(fileName)
 	if err != nil {
 		return err

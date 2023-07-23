@@ -46,4 +46,6 @@ Add following line to your golang code:
 //enum -package=<name of the package> -type=<name of the enum type> -values=<coma separated list of the values>
 ```
 Then run following command:
+```commandline
 go generate
+```

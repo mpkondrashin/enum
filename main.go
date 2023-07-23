@@ -8,9 +8,10 @@ import (
 )
 
 var (
-	typeName    = flag.String("type", "", "name of the enum type; it will be alias to int")
-	valuesList  = flag.String("values", "", "comma-separated list of values names; must be set")
+	typeName    = flag.String("type", "", "name of the enum type. It will be alias to int")
+	valuesList  = flag.String("values", "", "comma-separated list of values names")
 	packageName = flag.String("package", "", "package name")
+	output      = flag.String("output", "", "output filename (default enum_<type name>.go)")
 	noPrefix    = flag.Bool("noprefix", false, "do not add type name as prefix to values")
 )
 
@@ -38,7 +39,11 @@ func main() {
 		os.Exit(2)
 	}
 	values := strings.Split(*valuesList, ",")
-	if err := Run(*packageName, *typeName, *noPrefix, values...); err != nil {
+	fileName := fmt.Sprintf("enum_%s.go", strings.ToLower(*typeName))
+	if *output != "" {
+		fileName = *output
+	}
+	if err := Run(fileName, *packageName, *typeName, *noPrefix, values...); err != nil {
 		fmt.Println(err)
 	}
 }
