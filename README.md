@@ -36,7 +36,7 @@ func (s *TrafficLight) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 ## Installation
 ```commandline
-go get github.com/mpkondrashin/enum
+go install github.com/mpkondrashin/enum
 ```
 
 ## Using go generate
