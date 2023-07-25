@@ -38,8 +38,12 @@ func Run(fileName string, packageName string, typeName string, noPrefix bool, va
 	}
 	defer f.Close()
 
-	t2 := template.New("t_enum")
-	t2.Funcs(map[string]interface{}{"Title": strings.Title})
+	funcMap := template.FuncMap{
+		"ToLower": strings.ToLower,
+		"Title":   strings.Title,
+	}
+
+	t2 := template.New("t_enum").Funcs(funcMap)
 	t2, err = t2.Parse(fileTemplate)
 	if err != nil {
 		return err
@@ -66,6 +70,7 @@ import (
 	"errors"
     "fmt"
     "strconv"
+	"strings"
 )
 
 type {{.Type}} int
@@ -90,7 +95,7 @@ func (v {{.Type}})String() string {
 var ErrUnknown{{.Type}} = errors.New("unknown {{.Type}}")
 
 var map{{.Type}}FromString = map[string]{{.Type}}{
-{{range .Items}}    "{{.}}": {{$.Prefix}}{{Title .}},
+{{range .Items}}    "{{ToLower .}}": {{$.Prefix}}{{Title .}},
 {{end}}}
 
 // UnmarshalJSON implements the Unmarshaler interface of the json package for {{.Type}}.
@@ -99,7 +104,7 @@ func (s *{{.Type}}) UnmarshalJSON(data []byte) error {
     if err := json.Unmarshal(data, &v); err != nil {
         return err
     }
-    result, ok := map{{.Type}}FromString[v]
+    result, ok := map{{.Type}}FromString[strings.ToLower(v)]
     if !ok {
         return fmt.Errorf("%w: %s", ErrUnknown{{.Type}}, v)
     }
@@ -113,7 +118,7 @@ func (s *{{.Type}}) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	if err := unmarshal(&v); err != nil {
 		return err
 	}
-	result, ok := map{{.Type}}FromString[v]		
+	result, ok := map{{.Type}}FromString[strings.ToLower(v)]		
 	if !ok {
 		return fmt.Errorf("%w: %s", ErrUnknown{{.Type}}, v)
 	}
