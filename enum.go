@@ -112,6 +112,11 @@ func (s *{{.Type}}) UnmarshalJSON(data []byte) error {
     return nil
 }
 
+// MarshalJSON implements the Marshaler interface of the json package for {{.Type}}.
+func (s {{.Type}}) MarshalJSON() ([]byte, error) {
+    return []byte(fmt.Sprintf("\"%v\"", s)), nil
+}
+
 // UnmarshalYAML implements the Unmarshaler interface of the yaml.v3 package for {{.Type}}.
 func (s *{{.Type}}) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var v string
