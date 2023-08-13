@@ -1,6 +1,6 @@
 # Enum - autmatically generate enums for Go
 
-Enum prvide ability to create enumirated values with unmarshaling from JSON and YAML. 
+Enum prvides ability to create enumirated values with support of unmarshaling from JSON and YAML. 
 
 ## Example
 
@@ -50,7 +50,7 @@ Add following line to your golang code:
 ```golang
 //enum -package=<name of the package> -type=<name of the enum type> -values=<coma separated list of the values>
 ```
-Then run following command:
+Then run the following command:
 ```commandline
 go generate
 ```
