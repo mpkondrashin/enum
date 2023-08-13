@@ -28,6 +28,11 @@ func (s *TrafficLight) UnmarshalJSON(data []byte) error {
     ...
 }
 
+// MarshalJSON implements the Marshaler interface of the json package for TrafficLight.
+func (s TrafficLight) MarshalJSON() ([]byte, error) {
+    ...
+}
+
 // UnmarshalYAML implements the Unmarshaler interface of the yaml.v3 package for TrafficLight.
 func (s *TrafficLight) UnmarshalYAML(unmarshal func(interface{}) error) error {
     ...
