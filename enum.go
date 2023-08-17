@@ -62,7 +62,7 @@ const (
 // String - return string representation for {{.Type}} value
 func (v {{.Type}})String() string {
     s, ok := map[{{.Type}}]string {
-{{range .Items}}        {{$.Prefix}}{{Title .}}: "{{ToLower .}}",
+{{range .Items}}        {{$.Prefix}}{{Title .}}: "{{.}}",
 {{end}}    }[v]
     if ok {
         return s
