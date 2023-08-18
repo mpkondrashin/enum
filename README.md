@@ -54,3 +54,16 @@ Then run the following command:
 ```commandline
 go generate
 ```
+
+## Commandline options
+- -noprefix - do not add type name as prefix to values
+- -output string - output filename (default enum_<type name>.go)
+- -package string - package name
+- -type string
+- name of the enum type. It will be alias to int
+- -values string - comma-separated list of values names
+
+## Bugs
+
+Default file name is enum_<type name lower case>.go, so for two types differ by characters case, will overwrite same file. 
+Use  -output option to avoid this problem.
