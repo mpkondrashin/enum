@@ -59,8 +59,7 @@ go generate
 - -noprefix - do not add type name as prefix to values
 - -output string - output filename (default enum_<type name>.go)
 - -package string - package name
-- -type string
-- name of the enum type. It will be alias to int
+- -type string - name of the enum type. It will be alias to int
 - -values string - comma-separated list of values names
 
 ## Bugs
