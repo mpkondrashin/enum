@@ -6,7 +6,7 @@ Enum provides ability to create enumirated values with support of unmarshaling f
 
 Command 
 ```commandline
-enum -package main -type TrafficLight -values=Green,Yellow,Red
+enum -package main -type TrafficLight -names=Green,Yellow,Red
 ```
 will generate following code:
 ```golang
