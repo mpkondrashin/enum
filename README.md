@@ -1,6 +1,6 @@
 # Enum - autmatically generate enums for Go
 
-Enum provides ability to create enumirated values with support of unmarshaling from JSON and YAML. 
+Enum provides ability to create enumerated values with support of unmarshaling from JSON and YAML. 
 
 ## Example
 
