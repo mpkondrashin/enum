@@ -67,6 +67,7 @@ package {{.Package}}
 
 import (
     "encoding/json"
+	"encoding/xml"
     "errors"
     "fmt"
     "strconv"
@@ -133,3 +134,28 @@ func (s *{{.Type}}) UnmarshalYAML(unmarshal func(interface{}) error) error {
     return nil
 }
 `
+
+/*
+
+// MarshalXML implements the Marshaler interface of the xml package for {{.Type}}.
+func (s {{.Type}})  MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	return e.EncodeElement(s.String(), start)
+}
+
+// UnmarshalXML implements the Unmarshaler interface of the xml package for {{.Type}}.
+func (s *{{.Type}}) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	var v string
+	err := d.DecodeElement(&v, &start)
+	if err != nil {
+		return err
+	}
+	result, ok := map{{.Type}}FromString[strings.ToLower(v)]
+    if !ok {
+        return fmt.Errorf("%w: %s", ErrUnknown{{.Type}}, v)
+    }
+	*s = result
+	return nil
+}
+
+`
+*/
