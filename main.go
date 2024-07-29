@@ -10,6 +10,7 @@ import (
 var (
 	typeName    = flag.String("type", "", "name of the enum type. It will be alias to int")
 	namesList   = flag.String("names", "", "comma-separated list of names")
+	namesFile   = flag.String("names_file", "", "filename with list of names")
 	packageName = flag.String("package", "", "package name")
 	output      = flag.String("output", "", "output filename (default enum_<type name>.go)")
 	noPrefix    = flag.Bool("noprefix", false, "do not add type name as prefix to names")
@@ -29,6 +30,34 @@ func Usage() {
 	flag.PrintDefaults()
 }
 
+func NamesList() (string, error) {
+	if len(*namesList) != 0 {
+		return *namesList, nil
+	}
+	if len(*namesFile) == 0 {
+		return "", fmt.Errorf("Both %s and %s are missing", "names", "names_file")
+	}
+	data, err := os.ReadFile(*namesFile)
+	if err != nil {
+		return "", err
+	}
+	fmt.Println("data")
+	fmt.Println(string(data))
+	fmt.Println("/data")
+	var sb strings.Builder
+	for n, line := range strings.Split(string(data), "\n") {
+		line = strings.TrimSpace(line)
+		if len(line) == 0 {
+			continue
+		}
+		if n > 0 {
+			sb.WriteRune(',')
+		}
+		sb.WriteString(line)
+	}
+	return sb.String(), nil
+}
+
 func main() {
 	//	log.SetFlags(0)
 	//	log.SetPrefix("enum: ")
@@ -38,9 +67,13 @@ func main() {
 		flag.Usage()
 		os.Exit(2)
 	}
-
-	names := strings.Split(*namesList, ",")
-
+	n, err := NamesList()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(3)
+	}
+	names := strings.Split(n, ",")
+	fmt.Println(names)
 	fileName := fmt.Sprintf("enum_%s.go", strings.ToLower(*typeName))
 	if *output != "" {
 		fileName = *output
